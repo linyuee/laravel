@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\UserAuth;
 use Illuminate\Http\Request;
 
 /*
@@ -16,5 +17,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::group(['middleware'=>UserAuth::class],function(){
+    Route::get('index','TestController@index');
+});
 
-Route::get('index','TestController@index');
